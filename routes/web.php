@@ -15,3 +15,5 @@
 Auth::routes(['verify' => true]);
 
 Route::get('/', 'FrontEnd\HomeController@index')->name('home');
+
+Route::get('/categories', 'Admin\CategoriesController@index')->name('categories');

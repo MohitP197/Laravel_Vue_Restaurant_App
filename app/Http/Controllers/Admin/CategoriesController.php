@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,10 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::orderBy('display_order')->get();
+        return view('Admin.Categories.index', [
+            'categories' => $categories
+        ]);
     }
 
     /**
