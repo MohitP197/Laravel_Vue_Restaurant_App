@@ -17,3 +17,5 @@ Route::post('/categories/upsert', 'Admin\Categories\CategoriesController@upsert'
 
 // Using route model binding by passing category which automatically looks up that category and pass it to the controller method
 Route::delete('/categories/{category}', 'Admin\Categories\CategoriesController@destroy');
+
+Route::post('/menu-items/add', 'Admin\MenuItems\MenuItemsController@store');
