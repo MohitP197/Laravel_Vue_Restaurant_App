@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::post('/categories/upsert', 'Admin\CategoriesController@upsert');
+Route::post('/categories/upsert', 'Admin\Categories\CategoriesController@upsert');
 
 // Using route model binding by passing category which automatically looks up that category and pass it to the controller method
-Route::delete('/categories/{category}', 'Admin\CategoriesController@destroy');
+Route::delete('/categories/{category}', 'Admin\Categories\CategoriesController@destroy');

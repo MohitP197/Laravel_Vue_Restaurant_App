@@ -12,8 +12,11 @@
 */
 
 
+
 Auth::routes(['verify' => true]);
 
 Route::get('/', 'FrontEnd\HomeController@index')->name('home');
 
-Route::get('/categories', 'Admin\CategoriesController@index')->name('categories');
+Route::get('/categories', 'Admin\Categories\CategoriesController@index')->name('categories');
+
+Route::get('/menu-editor', 'Admin\Menu\MenuController@index')->middleware('can:edit-menu');
