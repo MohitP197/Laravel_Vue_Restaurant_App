@@ -22,10 +22,19 @@ class CategoriesController extends Controller
         ]);
     }
 
-    public function upsert()
+    public function upsert(Request $request)
     {
         $this->authorize('manage', 'App/Category');
-        return ['success' => true];
+        $categories = $request->post('categories');
+        foreach ($categories as $cat) {
+            if ($cat['id']) {
+                Category::where('id', $cat['id'])->update($cat);
+            } else {
+                Category::create($cat);
+            }
+        }
+
+        return ['success' => true, 'categories' => Category::all()];
     }
 
     /**
@@ -89,8 +98,11 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-        //
+        $this->authorize('delete', $category);
+        $category->delete();
+
+        return ['success' => true];
     }
 }
