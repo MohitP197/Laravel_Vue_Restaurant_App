@@ -23,6 +23,9 @@ export default {
       categories: _.cloneDeep(this.initialCategories)
     };
   },
+  created() {
+    axios.post("/api/categories/upsert");
+  },
   methods: {
     removeCategory(index) {
       if (confirm("Are you sure?")) {
@@ -39,7 +42,7 @@ export default {
       this.$nextTick(() => {
         //   x coordinate, y coordinate
         window.scrollTo(0, document.body.scrollHeight);
-        this.$refs[''][0].focus();
+        this.$refs[""][0].focus();
       });
     }
   }

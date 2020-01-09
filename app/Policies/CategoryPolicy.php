@@ -25,7 +25,6 @@ class CategoryPolicy
      */
     public function viewAny(User $user)
     {
-       
     }
 
     /**
@@ -36,7 +35,6 @@ class CategoryPolicy
      */
     public function manage(User $user)
     {
-        return $user->is_admin;
     }
 
     /**

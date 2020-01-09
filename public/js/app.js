@@ -1862,6 +1862,9 @@ __webpack_require__.r(__webpack_exports__);
       categories: _.cloneDeep(this.initialCategories)
     };
   },
+  created: function created() {
+    axios.post("/api/categories/upsert");
+  },
   methods: {
     removeCategory: function removeCategory(index) {
       if (confirm("Are you sure?")) {
@@ -1881,7 +1884,7 @@ __webpack_require__.r(__webpack_exports__);
         //   x coordinate, y coordinate
         window.scrollTo(0, document.body.scrollHeight);
 
-        _this.$refs[''][0].focus();
+        _this.$refs[""][0].focus();
       });
     }
   }

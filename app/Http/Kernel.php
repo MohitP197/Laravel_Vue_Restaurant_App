@@ -41,7 +41,6 @@ class Kernel extends HttpKernel
         'api' => [
             'throttle:60,1',
             'bindings',
-            // For every api route middleware
             'auth:api'
         ],
     ];
