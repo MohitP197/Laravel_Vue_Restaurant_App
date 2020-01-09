@@ -19,4 +19,6 @@ Route::get('/', 'FrontEnd\HomeController@index')->name('home');
 
 Route::get('/categories', 'Admin\Categories\CategoriesController@index')->name('categories');
 
-Route::get('/menu-editor', 'Admin\Menu\MenuController@index')->middleware('can:edit-menu');
+Route::get('/menu-editor/{any?}', 'Admin\Menu\MenuController@index')
+    ->where('any', '.*')
+    ->middleware('can:edit-menu');
