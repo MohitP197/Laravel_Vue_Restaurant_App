@@ -22,3 +22,5 @@ Route::get('/categories', 'Admin\Categories\CategoriesController@index')->name('
 Route::get('/menu-editor/{any?}', 'Admin\Menu\MenuController@index')
     ->where('any', '.*')
     ->middleware('can:edit-menu');
+
+Route::get('/menu', 'FrontEnd\MenuController@index');

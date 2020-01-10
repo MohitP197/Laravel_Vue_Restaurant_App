@@ -1996,6 +1996,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue2_dropzone__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue2_dropzone__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue2_dropzone_dist_vue2Dropzone_min_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue2-dropzone/dist/vue2Dropzone.min.css */ "./node_modules/vue2-dropzone/dist/vue2Dropzone.min.css");
 /* harmony import */ var vue2_dropzone_dist_vue2Dropzone_min_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue2_dropzone_dist_vue2Dropzone_min_css__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 //
 //
 //
@@ -2021,6 +2022,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 
@@ -2038,7 +2040,7 @@ function newItem() {
   components: {
     dropZone: vue2_dropzone__WEBPACK_IMPORTED_MODULE_0___default.a
   },
-  props: ["initial-categories", "id"],
+  props: ["id"],
   data: function data() {
     return {
       dropzoneOptions: {
@@ -2055,6 +2057,9 @@ function newItem() {
       errors: []
     };
   },
+  computed: Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapState"])({
+    categories: "categories"
+  }),
   created: function created() {
     var _this = this;
 
@@ -2106,6 +2111,7 @@ function newItem() {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 //
 //
 //
@@ -2122,14 +2128,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["initialCategories"],
   data: function data() {
     return {
-      categoryId: this.initialCategories[0].id,
+      categoryId: this.$store.state.categories[0].id,
       items: []
     };
   },
+  computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
+    categories: "categories"
+  }),
   created: function created() {
     this.fetchItems();
   },
@@ -38514,7 +38523,7 @@ var render = function() {
               _vm._v("Select a category")
             ]),
             _vm._v(" "),
-            _vm._l(_vm.initialCategories, function(cat) {
+            _vm._l(_vm.categories, function(cat) {
               return _c(
                 "option",
                 { key: cat.id, domProps: { value: cat.id } },
@@ -38607,7 +38616,7 @@ var render = function() {
       [
         _c("option", { attrs: { value: "" } }, [_vm._v("Select a category")]),
         _vm._v(" "),
-        _vm._l(_vm.initialCategories, function(cat) {
+        _vm._l(_vm.categories, function(cat) {
           return _c("option", { key: cat.id, domProps: { value: cat.id } }, [
             _vm._v(_vm._s(cat.name))
           ])
@@ -55233,7 +55242,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 /* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   state: {
     categories: [],
-    items: [],
+    items: {},
     feedback: ''
   },
   mutations: {
