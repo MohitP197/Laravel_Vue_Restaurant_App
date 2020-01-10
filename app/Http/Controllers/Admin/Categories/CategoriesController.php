@@ -67,7 +67,7 @@ class CategoriesController extends Controller
     public function items(Category $category)
     {
         return $category->menuItems->map(function ($item) {
-            return $item->only(['id', 'name', 'image']);
+            return $item->only(['id', 'name', 'image','price']);
         });
     }
 

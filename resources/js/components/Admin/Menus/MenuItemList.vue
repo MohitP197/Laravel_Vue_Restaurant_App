@@ -8,6 +8,7 @@
       <li v-for="item in items" :key="item.id">
         <img v-if="item.image" :src="`/images/MenuItems/${item.image}`" width="100" />
         <router-link :to="{name: 'edit-item', params: {id: item.id}}">{{item.name}}</router-link>
+        <p>${{item.price}}</p>
       </li>
     </ul>
   </div>

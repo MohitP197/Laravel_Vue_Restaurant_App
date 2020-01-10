@@ -27,6 +27,16 @@
 import vue2Dropzone from "vue2-dropzone";
 import "vue2-dropzone/dist/vue2Dropzone.min.css";
 
+function newItem() {
+  return {
+    name: "",
+    price: 0.0,
+    image: "",
+    category_id: "",
+    description: ""
+  };
+}
+
 export default {
   components: {
     dropZone: vue2Dropzone
@@ -45,13 +55,7 @@ export default {
           file.filename = res;
         }
       },
-      item: {
-        name: "",
-        price: 0.0,
-        image: "",
-        category_id: "",
-        description: ""
-      },
+      item: newItem(),
       errors: []
     };
   },
@@ -62,14 +66,23 @@ export default {
         .then(res => (this.item = res.data));
     }
   },
+  // For clearning the fields to empty (fixing vue router navigation issues)
+  beforeRouteLeave(to, from, next) {
+    this.item = newItem();
+    next();
+  },
   methods: {
     save() {
       let files = this.$refs.dropzone.getAcceptedFiles();
       if (files.length > 0 && files[0].filename) {
         this.item.image = files[0].filename;
       }
+      let url = "/api/menu-items/add";
+      if (this.id) {
+        url = "/api/menu-items/" + this.id;
+      }
       axios
-        .post("/api/menu-items/add", this.item)
+        .post(url, this.item)
         .then(res => {
           this.$router.push("/");
         })

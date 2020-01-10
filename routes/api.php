@@ -21,9 +21,11 @@ Route::delete('/categories/{category}', 'Admin\Categories\CategoriesController@d
 
 Route::post('/menu-items/add', 'Admin\MenuItems\MenuItemsController@store');
 
-Route::get('/menu-items/{menuItem}', function(MenuItem $menuItem){
+Route::get('/menu-items/{menuItem}', function (MenuItem $menuItem) {
     return $menuItem;
 });
+
+Route::post('/menu-items/{menuItem}', 'Admin\MenuItems\MenuItemsController@update');
 
 Route::post('/add-image', function (Request $request) {
     $file = $request->file('file');
@@ -32,4 +34,4 @@ Route::post('/add-image', function (Request $request) {
     return str_replace("$dir/", '', $path);
 });
 
-Route::get('/categories/{category}/items','Admin\Categories\CategoriesController@items');
+Route::get('/categories/{category}/items', 'Admin\Categories\CategoriesController@items');

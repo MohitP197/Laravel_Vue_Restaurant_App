@@ -2016,6 +2016,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 
+
+function newItem() {
+  return {
+    name: "",
+    price: 0.0,
+    image: "",
+    category_id: "",
+    description: ""
+  };
+}
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     dropZone: vue2_dropzone__WEBPACK_IMPORTED_MODULE_0___default.a
@@ -2033,13 +2044,7 @@ __webpack_require__.r(__webpack_exports__);
           file.filename = res;
         }
       },
-      item: {
-        name: "",
-        price: 0.0,
-        image: "",
-        category_id: "",
-        description: ""
-      },
+      item: newItem(),
       errors: []
     };
   },
@@ -2052,6 +2057,11 @@ __webpack_require__.r(__webpack_exports__);
       });
     }
   },
+  // For clearning the fields to empty (fixing vue router navigation issues)
+  beforeRouteLeave: function beforeRouteLeave(to, from, next) {
+    this.item = newItem();
+    next();
+  },
   methods: {
     save: function save() {
       var _this2 = this;
@@ -2062,7 +2072,13 @@ __webpack_require__.r(__webpack_exports__);
         this.item.image = files[0].filename;
       }
 
-      axios.post("/api/menu-items/add", this.item).then(function (res) {
+      var url = "/api/menu-items/add";
+
+      if (this.id) {
+        url = "/api/menu-items/" + this.id;
+      }
+
+      axios.post(url, this.item).then(function (res) {
         _this2.$router.push("/");
       })["catch"](function (error) {
         var messages = Object.values(error.response.data.errors);
@@ -2083,6 +2099,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
 //
 //
 //
@@ -38643,7 +38660,9 @@ var render = function() {
               "router-link",
               { attrs: { to: { name: "edit-item", params: { id: item.id } } } },
               [_vm._v(_vm._s(item.name))]
-            )
+            ),
+            _vm._v(" "),
+            _c("p", [_vm._v("$" + _vm._s(item.price))])
           ],
           1
         )

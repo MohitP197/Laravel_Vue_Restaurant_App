@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\MenuItems;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\MenuItemPost;
 use App\MenuItem;
 use Illuminate\Http\Request;
 
@@ -34,21 +35,9 @@ class MenuItemsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MenuItemPost $request)
     {
-        if (!$request->user()->can('edit-menu')) {
-            return response('Unauthorized', 403);
-        }
-
-        $request->validate([
-            'name' => 'required|max:128',
-            'description' => 'required|max:512',
-            'price' => 'required|numeric|min:0',
-            'category_id' => 'required|numeric',
-            'image' => 'required',
-        ]);
-
-        MenuItem::create($request->post());
+        MenuItem::create($request->validated());
     }
 
     /**
@@ -80,9 +69,9 @@ class MenuItemsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(MenuItemPost $request, MenuItem $menuItem)
     {
-        //
+        $menuItem->update($request->validated());
     }
 
     /**
