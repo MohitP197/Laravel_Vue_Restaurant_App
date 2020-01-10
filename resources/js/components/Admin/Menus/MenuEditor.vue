@@ -2,6 +2,7 @@
   <div>
     <h1>Menu Editor</h1>
     <router-link :to="{name: 'categories'}">Categories</router-link>
+    <router-link :to="{name: 'items'}">Items</router-link>
     <router-link :to="{name: 'add-item'}">Add Item</router-link>
     <!-- Router view is a placeholder component that will take on the identity of the component for the current route -->
     <router-view :initial-categories="categories"></router-view>
@@ -12,6 +13,7 @@
 import VueRouter from "vue-router";
 import CategoryManager from "../Categories/CategoryManager.vue";
 import MenuItem from "./MenuItem.vue";
+import MenuItemList from "./MenuItemList.vue";
 
 export default {
   props: ["categories"],
@@ -29,9 +31,21 @@ export default {
         redirect: { name: "categories" }
       },
       {
+        path: "/items",
+        name: "items",
+        component: MenuItemList
+      },
+      {
         path: "/add-item",
         name: "add-item",
         component: MenuItem
+      },
+      {
+        path: "/edit-item/:id",
+        name: "edit-item",
+        component: MenuItem,
+        // If prop is true it will automatically provide id as prop to the menu item component
+        props: true,
       },
       {
         path: "*",

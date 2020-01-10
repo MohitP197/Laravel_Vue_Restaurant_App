@@ -64,9 +64,11 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function items(Category $category)
     {
-        //
+        return $category->menuItems->map(function ($item) {
+            return $item->only(['id', 'name', 'image']);
+        });
     }
 
     /**

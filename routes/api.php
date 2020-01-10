@@ -1,5 +1,6 @@
 <?php
 
+use App\MenuItem;
 use Illuminate\Http\Request;
 
 /*
@@ -20,9 +21,15 @@ Route::delete('/categories/{category}', 'Admin\Categories\CategoriesController@d
 
 Route::post('/menu-items/add', 'Admin\MenuItems\MenuItemsController@store');
 
+Route::get('/menu-items/{menuItem}', function(MenuItem $menuItem){
+    return $menuItem;
+});
+
 Route::post('/add-image', function (Request $request) {
     $file = $request->file('file');
-    $dir = 'public/images/MenuItems';
-    $path = $file->store($dir);
+    $dir = 'images/MenuItems';
+    $path = $file->move($dir);
     return str_replace("$dir/", '', $path);
 });
+
+Route::get('/categories/{category}/items','Admin\Categories\CategoriesController@items');
