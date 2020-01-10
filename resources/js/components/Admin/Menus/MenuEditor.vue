@@ -5,7 +5,7 @@
     <router-link :to="{name: 'items'}">Items</router-link>
     <router-link :to="{name: 'add-item'}">Add Item</router-link>
     <!-- Router view is a placeholder component that will take on the identity of the component for the current route -->
-    <router-view :initial-categories="categories"></router-view>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -14,9 +14,14 @@ import VueRouter from "vue-router";
 import CategoryManager from "../Categories/CategoryManager.vue";
 import MenuItem from "./MenuItem.vue";
 import MenuItemList from "./MenuItemList.vue";
+import store from "../store";
 
 export default {
+  store,
   props: ["categories"],
+  created() {
+    this.$store.commit("SET_CATEGORIES", _.cloneDeep(this.categories));
+  },
   router: new VueRouter({
     mode: "history",
     base: "menu-editor",
@@ -45,7 +50,7 @@ export default {
         name: "edit-item",
         component: MenuItem,
         // If prop is true it will automatically provide id as prop to the menu item component
-        props: true,
+        props: true
       },
       {
         path: "*",
